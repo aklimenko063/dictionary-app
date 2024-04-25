@@ -6,15 +6,15 @@ import java.util.Optional;
 
 public interface DictionaryRepositoryInterface {
 
-    public Word addWordToDb(Word word);
+    Word addWordToDb(Word word);
 
-    public List<Word> getAllWords();
+    List<Word> getAllWords();
 
-    public Optional<Word> getWordsByName(String name);
+    Optional<Word> getWordsByName(String name);
 
-    public boolean deleteByName(String name);
+    boolean deleteByName(String name);
 
-    public boolean deleteWord(Word word);
+    boolean deleteWord(Word word);
 
-    public List<Word> getPages(Integer startElement, Integer pageSize);
+    List<Word> getPages(Integer startElement, Integer pageSize);
 }

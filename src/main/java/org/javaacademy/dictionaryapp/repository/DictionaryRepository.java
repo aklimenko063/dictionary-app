@@ -1,6 +1,7 @@
 package org.javaacademy.dictionaryapp.repository;
 
 import lombok.SneakyThrows;
+import org.javaacademy.dictionaryapp.annotation.SleepAnnotation;
 import org.javaacademy.dictionaryapp.entity.Word;
 import org.springframework.stereotype.Repository;
 
@@ -15,23 +16,23 @@ public class DictionaryRepository implements DictionaryRepositoryInterface {
 
     @SneakyThrows
     @Override
+    @SleepAnnotation(latency = 3000)
     public Word addWordToDb(Word word) {
-        Thread.sleep(3000);
         dictionaryDB.add(word);
         return word;
     }
 
     @SneakyThrows
     @Override
+    @SleepAnnotation(latency = 3000)
     public List<Word> getAllWords() {
-        Thread.sleep(3000);
         return new ArrayList<>(dictionaryDB.stream().toList());
     }
 
     @SneakyThrows
     @Override
+    @SleepAnnotation(latency = 3000)
     public Optional<Word> getWordsByName(String name) {
-        Thread.sleep(3000);
         return dictionaryDB.stream()
                         .filter(e -> e.getName().equals(name))
                         .findFirst();
@@ -39,22 +40,22 @@ public class DictionaryRepository implements DictionaryRepositoryInterface {
 
     @SneakyThrows
     @Override
+    @SleepAnnotation(latency = 3000)
     public boolean deleteByName(String name) {
-        Thread.sleep(3000);
         return dictionaryDB.remove(getWordsByName(name).orElseThrow());
     }
 
     @SneakyThrows
     @Override
+    @SleepAnnotation(latency = 3000)
     public boolean deleteWord(Word word) {
-        Thread.sleep(3000);
         return dictionaryDB.remove(word);
     }
 
     @SneakyThrows
     @Override
+    @SleepAnnotation(latency = 3000)
     public List<Word> getPages(Integer startElement, Integer pageSize) {
-        Thread.sleep(3000);
         return dictionaryDB.stream().toList();
     }
 }
