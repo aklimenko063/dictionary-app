@@ -6,6 +6,7 @@ import org.javaacademy.dictionaryapp.dto.WordDtoRq;
 import org.javaacademy.dictionaryapp.dto.WordDtoRs;
 import org.javaacademy.dictionaryapp.service.DictionaryService;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ public class DictionaryController {
     private final DictionaryService dictionaryService;
 
     @PostMapping
+    @CacheEvict(cacheNames = "portionWords", allEntries = true)
     public ResponseEntity<WordDtoRs> addWordToDb(@RequestBody WordDtoRq dto) {
         return ResponseEntity.status(CREATED).body(dictionaryService.addWordToDb(dto));
     }
@@ -37,6 +39,7 @@ public class DictionaryController {
     }
 
     @DeleteMapping("/{name}")
+    @CacheEvict(cacheNames = "portionWords", allEntries = true)
     public ResponseEntity<?> deleteWordByName(@PathVariable String name) {
         boolean result = dictionaryService.deleteByName(name);
         return  result
@@ -45,11 +48,13 @@ public class DictionaryController {
     }
 
     @PatchMapping("/{name}")
+    @CacheEvict(cacheNames = "portionWords", allEntries = true)
     public ResponseEntity<WordDtoRs> patchWordByName(@PathVariable String name,@RequestBody WordDtoRq dto) {
         return ResponseEntity.status(ACCEPTED).body(dictionaryService.patch(name, dto));
     }
 
     @PutMapping("/{name}")
+    @CacheEvict(cacheNames = "portionWords", allEntries = true)
     public ResponseEntity<?> updateBook(@PathVariable String name,@RequestBody WordDtoRq dto) {
         dictionaryService.patch(name, dto);
         return ResponseEntity.status(ACCEPTED).build();
